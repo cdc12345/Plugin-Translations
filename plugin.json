@@ -1,0 +1,13 @@
+{
+  "id": "translations",
+  "supportedversions": [
+    2025002
+  ],
+  "weight": 3001,
+  "info": {
+    "name": "Translations",
+    "version": "1.4.1",
+    "description": "Translations for some pr-refused plugin",
+    "author": "cdc12345"
+  }
+}

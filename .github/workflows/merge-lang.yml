@@ -3,14 +3,14 @@ name: Merge and Package Lang Files
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:  # 支持手动触发
+  workflow_dispatch:  # 手动触发
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ 拉取仓库代码
+      # 1️⃣ 拉取仓库
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -29,10 +29,10 @@ jobs:
       # 3️⃣ 运行 Bash 脚本
       - name: Merge and package .properties files
         run: |
-          chmod +x ./merge_properties.sh
-          ./merge_properties.sh
+          chmod +x ./merge.sh
+          ./merge.sh
 
-      # 4️⃣ 上传构建产物（ZIP 文件）
+      # 4️⃣ 上传生成的 zip 包
       - name: Upload lang zip artifact
         uses: actions/upload-artifact@v4
         with:

@@ -3,25 +3,38 @@ name: Merge and Package Lang Files
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:  # 允许手动触发
+  workflow_dispatch:  # 支持手动触发
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       # 1️⃣ 拉取仓库代码
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ 设置执行权限并运行 Bash 脚本
-      - name: Merge .properties files
+      # 2️⃣ 读取版本号
+      - name: Read version
+        id: version
         run: |
-          chmod +x ./merge.sh
-          ./merge.sh
+          if [ ! -f .version ]; then
+            echo "❌ 未找到 .version 文件"
+            exit 1
+          fi
+          VERSION=$(tr -d ' \n\r' < .version)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "📦 检测到版本号: $VERSION"
 
-      # 3️⃣ 上传结果为 artifact（可选）
-      - name: Upload merged lang.zip
+      # 3️⃣ 运行 Bash 脚本
+      - name: Merge and package .properties files
+        run: |
+          chmod +x ./merge_properties.sh
+          ./merge_properties.sh
+
+      # 4️⃣ 上传构建产物（ZIP 文件）
+      - name: Upload lang zip artifact
         uses: actions/upload-artifact@v4
         with:
-          name: lang-package
-          path: lang.zip
+          name: TranslationPatch-${{ steps.version.outputs.version }}
+          path: TranslationPatch${{ steps.version.outputs.version }}.zip

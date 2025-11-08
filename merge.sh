@@ -2,7 +2,7 @@
 set -euo pipefail
 
 OUTPUT_DIR="lang"
-ZIP_FILE="lang.zip"
+ZIP_FILE="translationPatch25003.zip"
 PLUGIN_FILE="plugin.json"
 
 # 清理旧结果

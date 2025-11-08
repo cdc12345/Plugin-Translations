@@ -1,0 +1,27 @@
+name: Merge and Package Lang Files
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1️⃣ 拉取仓库代码
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ 设置执行权限并运行 Bash 脚本
+      - name: Merge .properties files
+        run: |
+          chmod +x ./merge_properties.sh
+          ./merge_properties.sh
+
+      # 3️⃣ 上传结果为 artifact（可选）
+      - name: Upload merged lang.zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: lang-package
+          path: lang.zip

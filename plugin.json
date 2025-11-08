@@ -1,11 +1,11 @@
 {
-  "id": "translations",
+  "id": "translationspatch",
   "supportedversions": [
-    2025002
+    ${supportedversion}
   ],
   "weight": 3001,
   "info": {
-    "name": "Translations",
+    "name": "TranslationsPatch",
     "version": "1.4.1",
     "description": "Translations for some pr-refused plugin",
     "author": "cdc12345"
